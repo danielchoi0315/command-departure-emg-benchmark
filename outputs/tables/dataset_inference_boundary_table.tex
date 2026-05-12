@@ -1,0 +1,17 @@
+\begin{table*}[!t]
+\centering
+\caption{Permitted inference by dataset. The benchmark uses a shared policy-layer replay object, but the branch semantics differ by dataset. This table defines what each dataset can and cannot support.}
+\label{tab:dataset-inference-boundary}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{0.15\textwidth}p{0.28\textwidth}p{0.31\textwidth}p{0.18\textwidth}}
+\toprule
+Dataset & Branch semantics & Permitted claim & Not permitted \\
+\midrule
+DB10/MeganePro & EMG user branch plus annotated context proxy & Prosthetic-grasp policy-layer frontier under amputee-relevant shift & Context-sensing stress behavior or online control \\
+Hyser & EMG user branch plus richer same-signal EMG branch & Policy audit under subject/day HD-EMG shift & Context-aware prosthetic autonomy \\
+CEMHSEY & EMG user branch plus richer same-signal EMG branch & Policy audit under multi-day HD-EMG shift & Implementation-ready prosthetic use or user-facing benefit \\
+GRABMyo & Supplementary EMG branch pair & Supplementary consistency check & Primary prosthetic-grasp claim \\
+\bottomrule
+\end{tabular}
+\end{table*}

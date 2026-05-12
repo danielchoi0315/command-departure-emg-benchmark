@@ -1,0 +1,16 @@
+\begin{table*}[!t]
+\centering
+\caption{Prepared benchmark datasets and paper roles. Rows are prepared-bundle counts from the frozen benchmark audit used for the paper package; the CEMHSEY publication analysis used 21{,}840 rows after configured failed-trial exclusions. DB10 is the claim-bearing dataset; Hyser and CEMHSEY are external HD-sEMG stress checks; GRABMyo is retained as supplementary support. User/assistive feature dimensions were 96/190 for DB10, 1280/2048 for Hyser, 1600/2560 for CEMHSEY, and 160/256 for GRABMyo.}
+\label{tab:datasets}
+\footnotesize
+\begin{tabular}{p{0.095\textwidth}p{0.30\textwidth}rrrrrp{0.17\textwidth}}
+\toprule
+Dataset & Role & Rows & Subjects & Sessions & Days & Labels & Assistive context mode \\
+\midrule
+DB10 & Primary; amputee-relevant multimodal grasp benchmark & 189,000 & 45 & 1 & 0 & 11 & annotated\_object\_proxy \\
+Hyser & External two-day HD-sEMG stress check & 40,340 & 20 & 2 & 2 & 34 & same-signal EMG \\
+CEMHSEY & External 11-day HD-sEMG stress check & 24,020 & 13 & 1 & 11 & 7 & same-signal EMG \\
+GRABMyo & Supplementary consistency check & 76,755 & 43 & 3 & 3 & 17 & same-signal EMG \\
+\bottomrule
+\end{tabular}
+\end{table*}

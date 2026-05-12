@@ -1,0 +1,16 @@
+\begin{table*}[!t]
+\centering
+\caption{Exact-budget confidence-threshold audit. Rows compare command-departure-margin against an exact-budget plain-confidence threshold selected from a dense threshold bank on evaluated traces. Counts report Holm-adjusted beneficial rows for command-departure-margin out of all tested $\tau$/split rows. The audit exposes a performance--command-departure frontier rather than a universal fixed operating point.}
+\label{tab:exact-budget}
+\footnotesize
+\begin{tabular}{lrrrrrrr}
+\toprule
+Dataset & Families & Univ. $\tau$ & Fixed $\tau$ & F1 wins & Risk wins & CDC wins & Max gap \\
+\midrule
+DB10 & 3 & 0 & False & 0/15 & 0/15 & 15/15 & 0.0045 \\
+Hyser & 2 & 0 & False & 1/10 & 6/10 & 10/10 & 0.0010 \\
+CEMHSEY & 1 & 0 & False & 1/5 & 5/5 & 5/5 & 0.0016 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+

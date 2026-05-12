@@ -1,0 +1,5 @@
+dataset,role,local_raw_status,access,source,redistribution
+DB10/MeganePro,primary prosthetic-grasp benchmark,not present in active lake,registration-based research access,NinaPro DB10/MeganePro upstream provider,raw data not redistributed
+Hyser,external high-density electromyography session/day-shift stress test,not present in active lake,PhysioNet open access under upstream terms,PhysioNet hd-semg release,raw data not redistributed
+GRABMyo,supplementary robustness/support dataset in legacy package,not present in active lake,PhysioNet open access under upstream terms,PhysioNet GRABMyo release,raw data not redistributed
+CEMHSEY,external high-density electromyography forward-day stress test,not present in active lake,Zenodo/upstream open research dataset terms,CEMHSEY upstream release,raw data not redistributed

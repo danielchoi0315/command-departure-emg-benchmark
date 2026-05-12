@@ -1,0 +1,76 @@
+# Experiment config for supplementary GPU-max Path-B e2e sensitivity run.
+experiment:
+  id: "command_departure_gpu"
+  seed: 1337
+  exp_mode: "throughput"  # throughput|correctness
+
+  # How to window time series for decision-making
+  window:
+    seconds: 0.200
+    hop_seconds: 0.050
+
+  # K-class label space:
+  # Use dataset-native K. For cross-dataset comparisons, report effects within each dataset,
+  # then meta-analyze effect sizes across datasets.
+  label_space:
+    mode: "dataset_native"
+
+  # Arbitration
+  confblend:
+    alpha: 0.5  # p = alpha p_u + (1-alpha) p_a
+
+  setacsa:
+    tau: 0.75   # fixed τ for gating
+
+  tau_calibration:
+    enabled: true
+    n_splits: 3
+    # Deterministic jitter used only to break exact c_u ties (no label use).
+    tie_break_eps: 1.0e-6
+    # target P(c_u < tau_set) estimated on train subjects only per fold
+    target_gate_rate_set: 0.10
+    set_use_complement_quantile: false
+    # For CSAAB, user requested tau_dyn(t) from quantiles of train-fold c_u.
+    # tau_dyn(t) = Q_train(1 - target_gate_rate_dyn(t)) when dynamic_use_complement_quantile=true.
+    dynamic_use_complement_quantile: true
+    dynamic:
+      a: 0.0
+      b_workload: 2.5
+      c_entropy: 2.5
+      r_min: 0.05
+      r_max: 0.30
+
+  csaab:
+    tau_min: 0.50
+    tau_max: 0.95
+    # Simple monotone mapping (you can swap to match your exact C3/C1 definition)
+    base_tau: 0.75
+    k_workload: 0.10
+    k_entropy: 0.15
+    entropy_ref: 1.0
+    workload_ref: 0.5
+
+  parity:
+    accuracy_tol: 0.05
+    macro_f1_tol: 0.05
+
+  # GPU-max p_u export model settings for supplementary sensitivity run.
+  pu_pred_model: "tcn_deep"
+  pu_models: ["tcn_deep"]
+  pu_deep:
+    lr: 3.0e-4
+    dropout: 0.25
+    width: 192
+    depth: 10
+    epochs: 12
+    batch_size: "auto_max_vram"
+    precision: "bf16"
+    compile: true
+    compile_mode: "max-autotune"
+    target_vram_fraction: 0.95
+    max_train_rows: 250000
+    dataloader:
+      workers: 24
+      pin_memory: true
+      persistent_workers: true
+      prefetch_factor: 8

@@ -1,0 +1,28 @@
+\begin{table*}[!t]
+\centering
+\caption{External HD-sEMG stress checks. Hyser and CEMHSEY are not prosthetic clinical-validation datasets; they stress-test the same policy layer under HD-sEMG day/session shift.}
+\label{tab:external}
+\footnotesize
+\begin{tabular}{llrrrr}
+\toprule
+Dataset / split & Policy & Active F1 & Active risk AUC & Mean CDC & Intervention \\
+\midrule
+Hyser subject LOGO & User only & 0.325 & 0.467 & 0.000 & 0.000 \\
+Hyser subject LOGO & CD-margin $\tau=.20$ & 0.342 & 0.450 & 0.012 & 0.122 \\
+Hyser subject LOGO & Conf. blend $\alpha=.50$ & 0.358 & 0.425 & 0.027 & 0.227 \\
+Hyser subject LOGO & Assist only & 0.288 & 0.514 & 0.197 & 0.673 \\
+\addlinespace
+Hyser day shift & User only & 0.386 & 0.405 & 0.000 & 0.000 \\
+Hyser day shift & CD-margin $\tau=.20$ & 0.432 & 0.366 & 0.013 & 0.153 \\
+Hyser day shift & Conf. blend $\alpha=.50$ & 0.446 & 0.347 & 0.019 & 0.233 \\
+Hyser day shift & Assist only & 0.393 & 0.417 & 0.123 & 0.616 \\
+\addlinespace
+CEMHSEY forward-day LOGO & User only & 0.578 & 0.258 & 0.000 & 0.000 \\
+CEMHSEY forward-day LOGO & CD-margin $\tau=.20$ & 0.650 & 0.230 & 0.015 & 0.183 \\
+CEMHSEY forward-day LOGO & Conf. blend $\alpha=.75$ & 0.670 & 0.223 & 0.035 & 0.303 \\
+CEMHSEY forward-day LOGO & Assist only & 0.644 & 0.243 & 0.053 & 0.377 \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\end{table*}
+

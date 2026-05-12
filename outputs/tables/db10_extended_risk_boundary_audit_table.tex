@@ -1,0 +1,28 @@
+\begin{table*}[!t]
+\centering
+\caption{Extended DB10 risk-boundary audit from the 21-fold batch run. These diagnostics are not additional primary claims; they test whether risk-boundary conditions change the evidence boundary. Object and metadata rows are interpreted as annotated-context priors, not implementation-ready context sensing.}
+\label{tabS:db10-extended-risk-boundary-audit}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrl}
+\toprule
+Audit & Split & Active F1 & ECE & NLL & Interpretation \\
+\midrule
+Object/object-part prior, all-class & Amputee LOSO & 0.0000 & 0.0023 & 0.8330 & Rest-dominant all-class prior; active F1 is not informative for active context strength. \\
+Object/object-part prior, active-conditional & Amputee LOSO & 0.8148 & 0.4061 & 13.9553 & Object annotations strongly constrain active-grasp labels. \\
+Metadata nonlinear classifier & Amputee LOSO & 0.7678--0.8197 & 0.3378--0.3450 & 1.3747--1.3835 & Allowed metadata is highly context-informative; DB10 remains an annotated-context upper-bound. \\
+Assistive tail ablation & Amputee LOSO & 0.6465 & 0.0703 & 0.9112 & Non-user assistive-tail features carry most active prediction. \\
+User-decoder adequacy, classical baselines & Amputee LOSO & 0.0278--0.0708 & 0.1726--0.2923 & 1.9998--5.3124 & LDA, logistic regression, random forest, and ExtraTrees do not remove the weak user-only stress-test condition. \\
+\midrule
+Object/object-part prior, active-conditional & Able-to-amputee & 0.8148 & 0.4105 & 13.9529 & Same active context prior appears in the population-transfer boundary. \\
+Metadata nonlinear classifier & Able-to-amputee & 0.7477--0.8230 & 0.3353--0.3442 & 1.3718--1.3809 & Context/protocol metadata remains highly predictive among active grasps. \\
+User-decoder adequacy, classical baselines & Able-to-amputee & 0.0309--0.0877 & 0.1258--0.3172 & 1.8989--4.6150 & Classical user-only baselines remain weak under the strict held-amputee evaluation. \\
+\midrule
+Object/object-part prior, active-conditional & All-subject k-fold & 0.8148 & 0.4112 & 13.9525 & Active object context remains strongly informative under all-subject subject-disjoint folds. \\
+Metadata nonlinear classifier & All-subject k-fold & 0.7500--0.8250 & 0.3379--0.3451 & 1.3655--1.3862 & Metadata/context priors persist across subject-disjoint folds. \\
+User-decoder adequacy, classical baselines & All-subject k-fold & 0.0535--0.1340 & 0.0936--0.2170 & 1.8489--3.2457 & Stronger classical user decoders improve only modestly and do not change the benchmark boundary. \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

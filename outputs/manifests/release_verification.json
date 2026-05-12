@@ -1,0 +1,100 @@
+{
+  "figures": {
+    "pdf_count": 14,
+    "png_count": 14,
+    "tiff_count": 0,
+    "figures": [
+      {
+        "file": "fig1_benchmark_flow.png",
+        "width": 7153,
+        "height": 2445,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "fig2_db10_frontier.png",
+        "width": 7153,
+        "height": 5042,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "fig3_setacsa_pairwise.png",
+        "width": 7153,
+        "height": 3848,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "fig4_exact_budget_audit.png",
+        "width": 7153,
+        "height": 5098,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "fig5_external_robustness.png",
+        "width": 7153,
+        "height": 5042,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "fig6_db10_correct_within_budget.png",
+        "width": 7153,
+        "height": 5000,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "figS_cemhsey_correct_within_budget.png",
+        "width": 7153,
+        "height": 5000,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "figS_cemhsey_matched_budget_ablation.png",
+        "width": 7153,
+        "height": 4639,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "figS_db10_calibration_sensitivity.png",
+        "width": 8897,
+        "height": 4668,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "figS_db10_context_control_active_f1.png",
+        "width": 9096,
+        "height": 4652,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "figS_db10_context_degradation.png",
+        "width": 8697,
+        "height": 4683,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "figS_db10_matched_budget_ablation.png",
+        "width": 7153,
+        "height": 4945,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "figS_hyser_correct_within_budget.png",
+        "width": 7153,
+        "height": 5000,
+        "dpi": 999.9979999999999
+      },
+      {
+        "file": "figS_hyser_matched_budget_ablation.png",
+        "width": 7153,
+        "height": 4639,
+        "dpi": 999.9979999999999
+      }
+    ]
+  },
+  "tables": {
+    "table_count": 9,
+    "manifest_count": 2
+  },
+  "forbidden_files": {
+    "forbidden_file_count": 0
+  }
+}

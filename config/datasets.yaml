@@ -1,0 +1,463 @@
+# Dataset registry for CommandDepartureBenchmark.
+# Required fields consumed by pipeline scripts:
+# - tier
+# - raw_subdir
+# - version
+#
+# Additional fields are used for curation, compliance, and reproducibility.
+datasets:
+  # Tier 0 (spine)
+  ninapro_db10_meganepro:
+    display_name: "NinaPro DB10 (MeganePro)"
+    tier: 0
+    modalities: ["emg", "imu", "gaze", "egovideo", "head_imu", "behavioral", "clinical"]
+    access: "manual_download_registration"
+    license: "Research use with dataset registration/terms acceptance"
+    home: "https://ninapro.hevs.ch/instructions/DB10.html"
+    download_url: "https://ninapro.hevs.ch/instructions/DB10.html"
+    citation: "Masson et al., Scientific Data 2020 (NinaPro DB10 with MeganePro)"
+    raw_subdir: "raw/ninapro_db10_meganepro"
+    version: "2020"
+    citation_key: "NinaProDB10SciData2020"
+    adapter_status: "planned_pr_a6"
+    arbitration_role: "full"
+    dataverse_pids:
+      - "doi:10.7910/DVN/1Z3IOM"
+      - "doi:10.7910/DVN/78QFZH"
+      - "doi:10.7910/DVN/F9R33N"
+      - "doi:10.7910/DVN/EJJ91H"
+    expected_raw_layout:
+      - "raw/ninapro_db10_meganepro/<subject_id>/"
+      - "raw/ninapro_db10_meganepro/<subject_id>/meganepro/"
+      - "raw/ninapro_db10_meganepro/<subject_id>/emg_imu/"
+    verification_hash_steps:
+      - "Store upstream archive checksums when downloading."
+      - "Run scripts/utils/write_manifest.py with raw path as --input."
+      - "Record tree_sha256 in results/<exp>/manifest.json."
+
+  harmonic:
+    display_name: "HARMONIC"
+    tier: 0
+    modalities: ["eye_video", "egovideo", "joystick", "emg", "robot_state", "stereo_video"]
+    access: "manual_or_script"
+    license: "Dataset terms and access policy; verify per release"
+    home: "https://harplab.github.io/harmonic/"
+    download_url: "https://huggingface.co/datasets/harmonicdataset/HARMONIC/tree/main/data"
+    citation: "Narang et al., HARMONIC dataset and benchmark"
+    raw_subdir: "raw/harmonic"
+    version: "1.0.0"
+    citation_key: "HARMONIC"
+    adapter_status: "planned_pr_a5"
+    arbitration_role: "p_a_only"
+    expected_raw_layout:
+      - "raw/harmonic/<session_id>/"
+      - "raw/harmonic/<session_id>/recording.*"
+      - "raw/harmonic/<session_id>/calibration.*"
+    verification_hash_steps:
+      - "Keep vendor-provided checksums for downloaded archives."
+      - "Hash extracted tree with scripts/utils/write_manifest.py."
+      - "Check manifests before preprocessing."
+    hash_scope:
+      # HARMONIC tarballs are large; hash only extracted variant payload.
+      include_globs:
+        - "extracted/*/text/**"
+        - "extracted/*/minimal/**"
+      exclude_globs:
+        - "extracted/**/README*"
+        - "extracted/**/*.md"
+        - "extracted/**/*.pdf"
+      large_file_count_threshold: 50000
+      large_bytes_threshold: 5368709120
+
+  # Tier 1 (EMG robustness)
+  physionet_grabmyo:
+    display_name: "GRABMyo (PhysioNet)"
+    tier: 1
+    modalities: ["emg"]
+    access: "script_or_manual_physionet"
+    license: "Open Data Commons Attribution License v1.0"
+    home: "https://physionet.org/content/grabmyo/"
+    download_url: "https://physionet.org/content/grabmyo/1.0.2/"
+    citation: "Sburlea et al., Scientific Data 2021; PhysioNet release"
+    raw_subdir: "raw/physionet_grabmyo"
+    version: "1.0.2"
+    citation_key: "GRABMyo"
+    adapter_status: "planned_pr_a1"
+    arbitration_role: "full"
+    expected_raw_layout:
+      - "raw/physionet_grabmyo/grabmyo-1.0.2/"
+      - "raw/physionet_grabmyo/grabmyo-1.0.2/Session1/"
+      - "raw/physionet_grabmyo/grabmyo-1.0.2/Session2/"
+      - "raw/physionet_grabmyo/grabmyo-1.0.2/Session3/"
+    verification_hash_steps:
+      - "Run physionet downloader with checksums when available."
+      - "Verify package integrity with PhysioNet metadata and local SHA256."
+      - "Persist hashes in manifest.json before adapter run."
+    hash_scope:
+      include_globs:
+        - "grabmyo-1.0.2/Session*/**/*.dat"
+        - "grabmyo-1.0.2/Session*/**/*.hea"
+        - "Session*/**/*.dat"
+        - "Session*/**/*.hea"
+      exclude_globs:
+        - "**/toolbox/**"
+        - "**/*.pdf"
+      large_file_count_threshold: 50000
+      large_bytes_threshold: 5368709120
+
+  physionet_hyser:
+    display_name: "Hyser (PhysioNet HD-sEMG)"
+    tier: 1
+    modalities: ["hd_emg"]
+    access: "script_or_manual_physionet"
+    license: "Open Data Commons Attribution License v1.0"
+    home: "https://physionet.org/content/hd-semg/"
+    download_url: "https://physionet.org/content/hd-semg/1.0.0/"
+    citation: "Li et al., Hyser dataset; PhysioNet release"
+    raw_subdir: "raw/physionet_hyser"
+    version: "1.0.0"
+    citation_key: "Hyser"
+    adapter_status: "planned_pr_a2"
+    arbitration_role: "full"
+    expected_raw_layout:
+      - "raw/physionet_hyser/1.0.0/"
+      - "raw/physionet_hyser/1.0.0/pr_dataset/subject*/session*/*.dat"
+    verification_hash_steps:
+      - "Verify downloaded package against PhysioNet record metadata."
+      - "Run tree SHA256 hashing before preprocessing."
+      - "Store hashes in stage manifest."
+    hash_scope:
+      include_globs:
+        - "1.0.0/pr_dataset/**"
+        - "1.0.0/random_dataset/**"
+        - "pr_dataset/**"
+        - "random_dataset/**"
+      exclude_globs:
+        - "1.0.0/toolbox/**"
+        - "toolbox/**"
+        - "**/*.pdf"
+      large_file_count_threshold: 50000
+      large_bytes_threshold: 5368709120
+
+  cemhsey_multiday_hd_semg:
+    display_name: "CEMHSEY Multi-day HD-sEMG (320-channel, 11-day)"
+    tier: 1
+    modalities: ["hd_emg", "kinematics", "electrode_layout"]
+    access: "manual_download"
+    license: "Open research data on Zenodo (verify exact license on record)"
+    home: "https://www.nature.com/articles/s41597-025-05037-z"
+    download_url: "https://doi.org/10.5281/zenodo.14224328"
+    citation: "Li et al., Scientific Data 2025, CEMHSEY"
+    raw_subdir: "raw/cemhsey_multiday_hd_semg"
+    version: "1.0.0"
+    citation_key: "CEMHSEY2025"
+    adapter_status: "candidate_tier1_no_adapter"
+    expected_raw_layout:
+      - "raw/cemhsey_multiday_hd_semg/DataSet_1/subj*/*"
+      - "raw/cemhsey_multiday_hd_semg/DataSet_2/S*/D*/R*/*"
+      - "raw/cemhsey_multiday_hd_semg/README*"
+    verification_hash_steps:
+      - "Capture Zenodo checksums for all downloaded archives."
+      - "Hash extracted tree and keep tree_sha256 in manifest."
+      - "Verify file counts per subject/day repetition."
+
+  emg2qwerty:
+    display_name: "Meta EMG2QWERTY"
+    tier: 1
+    modalities: ["forearm_emg", "keyboard_intent"]
+    access: "manual_repo_download"
+    license: "CC BY-NC 4.0 (non-commercial)"
+    home: "https://github.com/facebookresearch/emg2qwerty"
+    download_url: "https://github.com/facebookresearch/emg2qwerty"
+    citation: "Meta FAIR EMG2QWERTY benchmark"
+    raw_subdir: "raw/emg2qwerty"
+    version: "main"
+    citation_key: "EMG2QWERTY"
+    adapter_status: "candidate_tier1_large_no_adapter"
+    expected_raw_layout:
+      - "raw/emg2qwerty/<split_or_subject>/"
+      - "raw/emg2qwerty/**/*.npy|.csv|.json"
+    verification_hash_steps:
+      - "Pin git commit hash of cloned repository."
+      - "Hash data directory tree before featurization."
+      - "Record commit + hashes in manifest."
+
+  emg2pose:
+    display_name: "Meta EMG2POSE"
+    tier: 1
+    modalities: ["forearm_emg", "joint_pose", "kinematics"]
+    access: "manual_repo_download"
+    license: "CC BY-NC 4.0 (non-commercial)"
+    home: "https://github.com/facebookresearch/emg2pose"
+    download_url: "https://github.com/facebookresearch/emg2pose"
+    citation: "Meta FAIR EMG2POSE benchmark"
+    raw_subdir: "raw/emg2pose"
+    version: "main"
+    citation_key: "EMG2POSE"
+    adapter_status: "candidate_tier1_large_no_adapter"
+    expected_raw_layout:
+      - "raw/emg2pose/<session_or_subject>/"
+      - "raw/emg2pose/**/*.h5|.npy|.json"
+    verification_hash_steps:
+      - "Pin git commit hash of cloned repository."
+      - "Hash dataset tree and store tree_sha256 in manifest."
+      - "Track any preprocessing cache artifacts separately."
+
+  capgmyo:
+    display_name: "CapgMyo DB-a"
+    tier: 1
+    modalities: ["hd_emg"]
+    access: "manual_download"
+    license: "See Figshare record terms"
+    home: "https://figshare.com/articles/dataset/Data_from_Gesture_Recognition_by_Instantaneous_Surface_EMG_Images_CapgMyo-DBa/7210397"
+    download_url: "https://figshare.com/articles/dataset/Data_from_Gesture_Recognition_by_Instantaneous_Surface_EMG_Images_CapgMyo-DBa/7210397"
+    citation: "Du et al., CapgMyo gesture dataset"
+    raw_subdir: "raw/capgmyo"
+    version: "db-a"
+    citation_key: "CapgMyo"
+    adapter_status: "stub_present"
+    expected_raw_layout:
+      - "raw/capgmyo/*"
+    verification_hash_steps:
+      - "Record archive checksum from Figshare."
+      - "Hash extracted tree with write_manifest."
+      - "Check hash stability across reruns."
+
+  # Tier 1 (workload / HRC)
+  gazeload:
+    display_name: "GAZELOAD"
+    tier: 1
+    modalities: ["pupil", "gaze", "illuminance", "workload_ratings", "egovideo"]
+    access: "manual_download"
+    license: "CC BY 4.0"
+    home: "https://data.mendeley.com/datasets/xbyw2756hg/1"
+    download_url: "https://data.mendeley.com/datasets/xbyw2756hg/1"
+    citation: "GAZELOAD dataset (Mendeley Data / arXiv 2026)"
+    raw_subdir: "raw/gazeload"
+    version: "1"
+    citation_key: "GAZELOAD2026"
+    adapter_status: "planned_pr_a4"
+    enabled: false
+    expected_raw_layout:
+      - "raw/gazeload/P1/"
+      - "raw/gazeload/P2/"
+      - "raw/gazeload/metadata/*.csv"
+    verification_hash_steps:
+      - "Use Mendeley-provided MD5 checksums to validate archives."
+      - "Compute SHA256 for extracted tree and store in manifest."
+      - "Verify participant/session counts before windowing."
+
+  colet:
+    display_name: "COLET"
+    tier: 1
+    modalities: ["pupil", "gaze", "eye_tracking"]
+    access: "manual_download"
+    license: "CC BY 4.0"
+    home: "https://zenodo.org/records/7766785"
+    download_url: "https://zenodo.org/records/7766785"
+    citation: "Lopez et al., Comput Biol Med 2023 (COLET workload via eye tracking)"
+    raw_subdir: "raw/colet"
+    version: "3.0"
+    citation_key: "COLET2023"
+    adapter_status: "planned_pr_a3_after_krejtz"
+    zenodo_record_id: 7766785
+    expected_raw_layout:
+      - "raw/colet/COLET_v3.zip (preferred)"
+      - "raw/colet/COLET_v2.zip (fallback)"
+      - "raw/colet/COLET_v1.zip (fallback)"
+      - "raw/colet/extracted/v3/data_v3.mat"
+      - "raw/colet/extracted/v2/data_v2.mat"
+      - "raw/colet/extracted/v1/data.mat"
+    verification_hash_steps:
+      - "Resolve Zenodo file metadata and validate md5 for downloaded COLET_v*.zip."
+      - "Hash extracted tree and persist tree_sha256."
+      - "Record parsed file discovery + subject/task counts in adapter manifest."
+
+  krejtz_plosone:
+    display_name: "Krejtz PLOS One NASA-TLX + pupil dataset"
+    tier: 1
+    modalities: ["pupil", "gaze", "nasa_tlx"]
+    access: "manual_download"
+    license: "CC BY 4.0"
+    home: "https://papers.plos.org/plosone/article?id=10.1371/paper.pone.0203629"
+    download_url: "https://papers.plos.org/plosone/article/file?id=10.1371/paper.pone.0203629.s001&type=data"
+    citation: "Krejtz et al., PLOS One 2018"
+    raw_subdir: "raw/krejtz_plosone"
+    version: "2018"
+    citation_key: "Krejtz2018"
+    adapter_status: "planned_pr_a3_first"
+    arbitration_role: "workload_only"
+    expected_raw_layout:
+      - "raw/krejtz_plosone/*.csv"
+      - "raw/krejtz_plosone/*.xlsx"
+      - "raw/krejtz_plosone/*.sav"
+    verification_hash_steps:
+      - "Use PLOS supporting file checksums if provided."
+      - "Hash all raw files and store in manifest."
+      - "Lock schema map used by adapter."
+
+  # Tier 2 (trust / acceptance + optional priors)
+  drapebot_trust:
+    display_name: "DrapeBot trust and acceptance dataset"
+    tier: 2
+    modalities: ["motion_capture", "trust_questionnaires", "task_logs"]
+    access: "manual_download"
+    license: "CC BY 4.0"
+    home: "https://zenodo.org/records/13366190"
+    download_url: "https://zenodo.org/records/13366190"
+    citation: "DrapeBot trust benchmark (Zenodo release)"
+    raw_subdir: "raw/drapebot_trust"
+    version: "1.0.0"
+    citation_key: "DrapeBotTrust"
+    adapter_status: "candidate_tier2_no_adapter"
+    expected_raw_layout:
+      - "raw/drapebot_trust/Robot_data/"
+      - "raw/drapebot_trust/Subjective_data/"
+      - "raw/drapebot_trust/Object_data/"
+    verification_hash_steps:
+      - "Verify Zenodo checksum for zip archive."
+      - "Hash extracted tree and store manifest tree_sha256."
+      - "Cross-check participant IDs between objective/subjective files."
+
+  robotfeeding_open:
+    display_name: "robotfeeding.io open datasets"
+    tier: 2
+    modalities: ["rgbd", "forces", "poses", "manipulation_events"]
+    access: "manual_download"
+    license: "Dataset-specific terms; verify each linked DOI"
+    home: "https://www.robotfeeding.io/data"
+    download_url: "https://www.robotfeeding.io/data"
+    citation: "robotfeeding.io benchmark datasets"
+    raw_subdir: "raw/robotfeeding_open"
+    version: "latest"
+    citation_key: "RobotFeedingOpen"
+    adapter_status: "optional_context_no_adapter"
+    expected_raw_layout:
+      - "raw/robotfeeding_open/<dataset_name>/"
+      - "raw/robotfeeding_open/<dataset_name>/calibration/"
+      - "raw/robotfeeding_open/<dataset_name>/trials/"
+    verification_hash_steps:
+      - "Capture checksum from each linked DOI record."
+      - "Hash each dataset subtree separately."
+      - "Track per-dataset manifests for provenance."
+
+  # Additional candidates discovered via PhysioNet index and curated EMG searches.
+  physionet_eeg_eye_gaze_ras:
+    display_name: "EEG Eye Gaze Processing in Robot-Assisted Stroke"
+    tier: 2
+    modalities: ["eeg", "eye_gaze", "robot_assist_state"]
+    access: "manual_download_physionet"
+    license: "Open Data Commons Attribution License v1.0"
+    home: "https://physionet.org/content/eeg-eye-gaze-ras/"
+    download_url: "https://physionet.org/content/eeg-eye-gaze-ras/1.0.0/"
+    citation: "PhysioNet EEG-eye-gaze RAS dataset"
+    raw_subdir: "raw/physionet_eeg_eye_gaze_ras"
+    version: "1.0.0"
+    citation_key: "EEGEyeGazeRAS"
+    adapter_status: "candidate_not_selected"
+    expected_raw_layout:
+      - "raw/physionet_eeg_eye_gaze_ras/*"
+    verification_hash_steps:
+      - "Validate archive checksums from PhysioNet."
+      - "Hash tree before preprocessing."
+      - "Record hashes in manifest."
+
+  physionet_brain_wearable_monitoring_nback:
+    display_name: "Brain and Wearable Monitoring During N-Back"
+    tier: 2
+    modalities: ["eeg", "ecg", "wearables", "nback_labels"]
+    access: "manual_download_physionet"
+    license: "Open Data Commons Attribution License v1.0"
+    home: "https://physionet.org/content/brain-wearable-monitoring-nback/"
+    download_url: "https://physionet.org/content/brain-wearable-monitoring-nback/1.0.0/"
+    citation: "PhysioNet multimodal N-back workload dataset"
+    raw_subdir: "raw/physionet_brain_wearable_monitoring_nback"
+    version: "1.0.0"
+    citation_key: "BrainWearableNBack"
+    adapter_status: "candidate_not_selected"
+    expected_raw_layout:
+      - "raw/physionet_brain_wearable_monitoring_nback/*"
+    verification_hash_steps:
+      - "Validate archive checksums from PhysioNet."
+      - "Hash tree before preprocessing."
+      - "Record hashes in manifest."
+
+  physionet_multimodal_nback_music:
+    display_name: "Multimodal N-Back and Music Listening"
+    tier: 2
+    modalities: ["eeg", "ecg", "eda", "workload_condition"]
+    access: "manual_download_physionet"
+    license: "Open Data Commons Attribution License v1.0"
+    home: "https://physionet.org/content/multimodal-nback-music/"
+    download_url: "https://physionet.org/content/multimodal-nback-music/1.0.0/"
+    citation: "PhysioNet multimodal workload benchmark"
+    raw_subdir: "raw/physionet_multimodal_nback_music"
+    version: "1.0.0"
+    citation_key: "MultimodalNBackMusic"
+    adapter_status: "candidate_not_selected"
+    expected_raw_layout:
+      - "raw/physionet_multimodal_nback_music/*"
+    verification_hash_steps:
+      - "Validate archive checksums from PhysioNet."
+      - "Hash tree before preprocessing."
+      - "Record hashes in manifest."
+
+  physionet_mental_fnirs_tcd:
+    display_name: "Mental Workload During TCD (fNIRS)"
+    tier: 2
+    modalities: ["fnirs", "mental_workload_labels"]
+    access: "manual_download_physionet"
+    license: "Open Data Commons Attribution License v1.0"
+    home: "https://physionet.org/content/mental-fnirs-tcd/"
+    download_url: "https://physionet.org/content/mental-fnirs-tcd/1.0.0/"
+    citation: "PhysioNet fNIRS workload dataset"
+    raw_subdir: "raw/physionet_mental_fnirs_tcd"
+    version: "1.0.0"
+    citation_key: "MentalFNIRSTCD"
+    adapter_status: "candidate_not_selected"
+    expected_raw_layout:
+      - "raw/physionet_mental_fnirs_tcd/*"
+    verification_hash_steps:
+      - "Validate archive checksums from PhysioNet."
+      - "Hash tree before preprocessing."
+      - "Record hashes in manifest."
+
+  physionet_eye_tracking_ecg_interpretation:
+    display_name: "Eye Tracking and ECG Interpretation"
+    tier: 2
+    modalities: ["eye_tracking", "ecg_images", "task_labels"]
+    access: "manual_download_physionet"
+    license: "Open Data Commons Attribution License v1.0"
+    home: "https://physionet.org/content/eye-tracking-ecg-interpretation/"
+    download_url: "https://physionet.org/content/eye-tracking-ecg-interpretation/1.0.0/"
+    citation: "PhysioNet eye-tracking cognitive workload candidate"
+    raw_subdir: "raw/physionet_eye_tracking_ecg_interpretation"
+    version: "1.0.0"
+    citation_key: "EyeTrackingECGInterpretation"
+    adapter_status: "candidate_not_selected"
+    expected_raw_layout:
+      - "raw/physionet_eye_tracking_ecg_interpretation/*"
+    verification_hash_steps:
+      - "Validate archive checksums from PhysioNet."
+      - "Hash tree before preprocessing."
+      - "Record hashes in manifest."
+
+  physionet_hand_kinematics_semg_hd_emg:
+    display_name: "Hand Kinematics with sEMG and HD-sEMG"
+    tier: 2
+    modalities: ["semg", "hd_emg", "hand_kinematics"]
+    access: "manual_download_physionet"
+    license: "Open Data Commons Attribution License v1.0"
+    home: "https://physionet.org/content/hand-kinematics-semg-hdsemg/"
+    download_url: "https://physionet.org/content/hand-kinematics-semg-hdsemg/1.0.0/"
+    citation: "PhysioNet HD-EMG candidate dataset"
+    raw_subdir: "raw/physionet_hand_kinematics_semg_hd_emg"
+    version: "1.0.0"
+    citation_key: "HandKinematicsSEMGHDSEMG"
+    adapter_status: "candidate_not_selected"
+    expected_raw_layout:
+      - "raw/physionet_hand_kinematics_semg_hd_emg/*"
+    verification_hash_steps:
+      - "Validate archive checksums from PhysioNet."
+      - "Hash tree before preprocessing."
+      - "Record hashes in manifest."

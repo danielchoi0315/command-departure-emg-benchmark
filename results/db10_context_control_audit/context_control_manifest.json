@@ -1,0 +1,26 @@
+{
+  "timestamp_utc": "2026-05-11T15:59:03+00:00",
+  "processed_root": "<local_processed_root>",
+  "out_dir": "results\\db10_context_control_audit",
+  "seed": 20260511,
+  "n_splits": 5,
+  "n_rows": 189000,
+  "n_subjects": 45,
+  "user_feature_dim": 96,
+  "assist_feature_dim": 190,
+  "assist_prefix_dim": 96,
+  "assist_tail_dim": 94,
+  "metadata_context_dim": 54,
+  "assist_prefix_vs_user_mean_abs_delta": 42.03038282633911,
+  "assist_prefix_vs_user_max_abs_delta": 785.0,
+  "feature_interpretation": "The processed assistive branch is audited directly. Its first user_dim columns are treated as an assistive-prefix control, not assumed to be identical to user_features.",
+  "variants": [
+    "full_assist",
+    "user_emg_only",
+    "assist_prefix_only",
+    "assist_tail_only",
+    "metadata_object_context",
+    "full_assist_shuffled_tail",
+    "assist_tail_shuffled_only"
+  ]
+}

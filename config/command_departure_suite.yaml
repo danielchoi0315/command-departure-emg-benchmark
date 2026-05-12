@@ -1,0 +1,38 @@
+suite:
+  base_exp: "command_departure_suite"
+  tier: 1
+  paper_mode: 1
+  seeds: [1337, 1338, 1339, 1340, 1341]
+  pu_pred_model: ["logreg", "tcn_deep"]
+  policies: ["UserOnly", "SetACSA", "CSAAB", "CSAAB_BUDGET"]
+  modes: ["throughput", "correctness"]
+  parity_tolerance: 0.001
+  skip_preprocess: true
+
+  throughput_env:
+# GPU-oriented defaults with a conservative cap to avoid large-dataset OOM.
+    PU_BATCH_SIZE: "8192"
+    PU_TARGET_VRAM_FRACTION: "0.70"
+    PU_DATALOADER_WORKERS: "16"
+    PU_DATALOADER_PIN_MEMORY: "1"
+    PU_DATALOADER_PERSISTENT_WORKERS: "1"
+    PU_DATALOADER_PREFETCH_FACTOR: "4"
+    PU_PRECISION: "bf16"
+    PU_COMPILE: "1"
+    PU_COMPILE_MODE: "max-autotune"
+    PYTORCH_CUDA_ALLOC_CONF: "expandable_segments:True"
+    PU_MAX_TRAIN_ROWS: "150000"
+    PU_DEEP_MAX_TRAIN_ROWS: "60000"
+
+  correctness_env:
+    # Deterministic settings; keep deep disabled unless pu_pred_model requires it.
+    CUBLAS_WORKSPACE_CONFIG: ":4096:8"
+    PU_BATCH_SIZE: "2048"
+    PU_TARGET_VRAM_FRACTION: "0.50"
+    PU_DATALOADER_WORKERS: "0"
+    PU_DATALOADER_PIN_MEMORY: "0"
+    PU_DATALOADER_PERSISTENT_WORKERS: "0"
+    PU_PRECISION: "fp32"
+    PU_COMPILE: "0"
+    PU_MAX_TRAIN_ROWS: "100000"
+    PU_DEEP_MAX_TRAIN_ROWS: "40000"

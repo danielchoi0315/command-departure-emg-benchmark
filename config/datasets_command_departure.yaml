@@ -1,0 +1,18 @@
+datasets:
+  ninapro_db10_meganepro:
+    tier: 0
+    raw_subdir: raw/ninapro_db10_meganepro
+    version: "2020"
+    arbitration_role: full
+
+  physionet_grabmyo:
+    tier: 1
+    raw_subdir: raw/physionet_grabmyo
+    version: "1.0.2"
+    arbitration_role: full
+
+  physionet_hyser:
+    tier: 1
+    raw_subdir: raw/physionet_hyser
+    version: "1.0.0"
+    arbitration_role: full
