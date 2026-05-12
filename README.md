@@ -16,7 +16,7 @@ The package does not support online prosthetic control, patient-facing readiness
 - `scripts/`: preprocessing, training, simulation, audit, and release-verification entry points.
 - `config/`: public-dataset registry and experiment configurations.
 - `outputs/`: submitted tables, vector figure PDFs, 1000-dpi figure exports, and release manifests.
-- `results/`: compact risk-boundary and context-control audit outputs used by the revised paper.
+- `results/`: compact risk-boundary and context-control audit outputs used by the reported benchmark results.
 - `docs/`: dataset provenance and replication notes.
 
 ## Quick Verification

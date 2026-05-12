@@ -1,6 +1,6 @@
 \begin{table*}[!t]
 \centering
-\caption{Extended DB10 risk-boundary audit from the 21-fold batch run. These diagnostics are not additional primary claims; they test whether risk-boundary conditions change the evidence boundary. Object and metadata rows are interpreted as annotated-context priors, not implementation-ready context sensing.}
+\caption{Extended DB10 risk-boundary audit from the 21-fold diagnostic run. These diagnostics are not additional primary claims; they test whether risk-boundary conditions change the evidence boundary. Object and metadata rows are interpreted as annotated-context priors, not implementation-ready context sensing.}
 \label{tabS:db10-extended-risk-boundary-audit}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -9,7 +9,7 @@
 \toprule
 Audit & Split & Active F1 & ECE & NLL & Interpretation \\
 \midrule
-Object/object-part prior, all-class & Amputee LOSO & 0.0000 & 0.0023 & 0.8330 & Rest-dominant all-class prior; active F1 is not informative for active context strength. \\
+Object/object-part prior, all-class & Amputee LOSO & 0.0000 & 0.0023 & 0.8330 & Rest-heavy all-class prior; active F1 is not informative for active context strength. \\
 Object/object-part prior, active-conditional & Amputee LOSO & 0.8148 & 0.4061 & 13.9553 & Object annotations strongly constrain active-grasp labels. \\
 Metadata nonlinear classifier & Amputee LOSO & 0.7678--0.8197 & 0.3378--0.3450 & 1.3747--1.3835 & Allowed metadata is highly context-informative; DB10 remains an annotated-context upper-bound. \\
 Assistive tail ablation & Amputee LOSO & 0.6465 & 0.0703 & 0.9112 & Non-user assistive-tail features carry most active prediction. \\

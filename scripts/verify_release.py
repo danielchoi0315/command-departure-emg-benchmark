@@ -16,6 +16,8 @@ REQUIRED = [
     "outputs/tables/exact_budget_summary_table.tex",
     "outputs/tables/db10_extended_risk_boundary_audit_table.tex",
     "outputs/tables/db10_policy_sensitivity_table.tex",
+    "outputs/tables/db10_risk_boundary_summary_table.tex",
+    "outputs/tables/db10_user_decoder_classical_table.tex",
     "outputs/figures/pdf/fig1_benchmark_flow.pdf",
     "outputs/figures/pdf/fig2_db10_frontier.pdf",
     "outputs/figures/pdf/fig4_exact_budget_audit.pdf",
