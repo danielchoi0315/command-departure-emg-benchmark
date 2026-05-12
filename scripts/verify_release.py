@@ -10,6 +10,7 @@ REQUIRED = [
     "README.md",
     "NO_RAW_DATA.md",
     "README_REPRODUCTION.md",
+    "CHECKSUMS_SHA256.txt",
     "config/datasets_command_departure.yaml",
     "src/command_departure_benchmark",
     "outputs/tables/db10_primary_table.tex",
@@ -39,6 +40,23 @@ FORBIDDEN_TEXT = [
 ]
 
 TEXT_SUFFIXES = {".py", ".md", ".txt", ".tex", ".yaml", ".yml", ".json", ".csv", ".sh", ".toml", ".cfg"}
+CHECKSUM_FILE = "CHECKSUMS_SHA256.txt"
+
+
+def validate_checksum_paths(root: Path, errors: list[str]) -> None:
+    checksum_path = root / CHECKSUM_FILE
+    if not checksum_path.exists():
+        return
+    for line_no, line in enumerate(checksum_path.read_text(encoding="utf-8", errors="ignore").splitlines(), start=1):
+        if not line.strip():
+            continue
+        try:
+            _, rel_path = line.split(maxsplit=1)
+        except ValueError:
+            errors.append(f"malformed checksum line {line_no} in {CHECKSUM_FILE}")
+            continue
+        if "\\" in rel_path:
+            errors.append(f"non-portable checksum path on line {line_no}: {rel_path}")
 
 
 def main() -> int:
@@ -63,6 +81,8 @@ def main() -> int:
         for needle in FORBIDDEN_TEXT:
             if needle in text:
                 errors.append(f"forbidden text {needle!r} in {path.relative_to(root)}")
+
+    validate_checksum_paths(root, errors)
 
     if errors:
         print("[VERIFY_RELEASE] FAIL")

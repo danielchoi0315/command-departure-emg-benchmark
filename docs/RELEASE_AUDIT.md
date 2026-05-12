@@ -8,6 +8,7 @@ This release contains only code, configuration, aggregate outputs, figures, and 
 - Final aggregate tables and table sources.
 - Vector PDF figures plus 1000-dpi PNG exports.
 - Dataset provenance and artifact inventory manifests.
+- Portable SHA-256 checksum manifest with POSIX-style relative paths.
 - Verification script for release structure and figure resolution.
 
 ## Excluded
